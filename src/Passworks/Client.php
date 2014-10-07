@@ -4,6 +4,8 @@ namespace Passworks;
 
 use Passworks\Exception;
 use Passworks\Request;
+use Passworks\Iterator\ResourceIterator;
+use Passworks\Exception\FileNotFoundException;
 
 class Client extends Request 
 {
@@ -51,47 +53,102 @@ class Client extends Request
       $this->debug = $debug;
     }
 
-    public function getStoreCards($page = 1, $perPage = null){
-
-        $url = "/store_cards.json?page={$page}";
-
-        if( !empty($perPage) ){
-            $url = "{$url}&per_page={$perPage}";
-        }
-
-        $response = $this->request('get', $url);
-        if( isset($response->store_cards) ){
-            return $response->store_cards;
-        }
-
-        return null;
+    public function getStoreCards($page = 1, $per_page = null){
+      return new ResourceIterator($this, 'get', '/store_cards', 'store_cards', array(
+        'page'     => $page,
+        'per_page' => $per_page 
+      ));
     }
+
+
+    public function getEventTickets($page = 1, $per_page = null){
+      return new ResourceIterator($this, 'get', '/event_tickets', 'event_tickets', array(
+        'page'     => $page,
+        'per_page' => $per_page 
+      ));
+    }
+
+
+    public function getBoardingPasses($page = 1, $per_page = null){
+      return new ResourceIterator($this, 'get', '/boarding_passes', 'boarding_passes', array(
+        'page'     => $page,
+        'per_page' => $per_page 
+      ));
+    }
+
+    public function getGenerics($page = 1, $per_page = null){
+      return new ResourceIterator($this, 'get', '/generics', 'generics', array(
+        'page'     => $page,
+        'per_page' => $per_page 
+      ));
+    }
+
+    // Coupons
+
+    public function createCouponCampaign($params)
+    {
+      return $this->request('post', '/coupons', array(
+        'coupon' => $params
+      ))->coupon; 
+    }
+
+    public function getCoupons($page = 1, $per_page = null){
+      return new ResourceIterator($this, 'get', '/coupons', 'coupons', array(
+        'page'     => $page,
+        'per_page' => $per_page 
+      ));
+    }
+    
+    public function createCoupon($campaign_id, $params, $extra=array())
+    {
+      return $this->request('post', "/coupons/{$campaign_id}/passes", merge_array(
+        array('pass' => $params),
+        $extra
+      ))->pass; 
+    }
+    
+    public function getCoupon($campaign_id, $pass_id)
+    {
+      return $this->request('get', "/coupons/{$campaign_id}/{$pass_id}")->coupon;
+    }
+    
+
+    public function updateCoupon($campaign_id, $pass_id, $params, $extra=array())
+    {
+      return $this->request('patch', "/coupons/{$campaign_id}/passes/{$pass_id}", array_merge(
+        array('pass' => $params),
+        $extra
+      ))->pass; 
+    }
+    
+    public function updateCouponCampaign($campaign_id, $pass_id, $params, $extra=array())
+    {
+      return $this->request('patch', "/coupons/{$campaign_id}", array_merge(
+        array( 'pass' => $params ),
+        $extra  
+      ))->pass; 
+    }
+
+    public function pushCoupon($campaign_id, $pass_id)
+    {
+        $this->request('post', "/coupons/{$campaign_id}/passes/{$pass_id}/push");
+    }
+
+    public function pushCouponCampaign($campaign_id, $pass_id)
+    {
+        $this->request('post', "/coupons/{$campaign_id}/passes/{$pass_id}/push");
+    }
+
+    // --- assets ---
 
     public function getAssets($page = 1, $perPage = null){
-        $url = "/assets.json?page={$page}";
-
-        if( !empty($perPage) ){
-            $url = "{$url}&per_page={$perPage}";
-        }
-
-        $response = $this->request('get', $url);
-        if( isset($response->assets) ){
-            return $response->assets;
-        }
-
-        return null;
+      return new ResourceIterator($this, 'get', '/assets', 'assets', array(
+        'page'     => $page,
+        'per_page' => $per_page 
+      ));
     }
-
-    public function getAsset($assetId){
-
-        $url = "/assets/{$assetId}";
-
-        $response = $this->request('get', $url);
-        if( isset($response->asset) ){
-            return $response->asset;
-        }
-
-        return null;
+    public function getAsset($asset_id){
+      return $this->request('get', "/assets/{$asset_id}")->asset;
     }
 
     public function createAsset($assetType, $file){

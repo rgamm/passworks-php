@@ -2,5 +2,5 @@
 
 namespace Passworks\Exception;
 
-class BaseException extend \Exception {}
+class BaseException extends \ErrorException {}
 

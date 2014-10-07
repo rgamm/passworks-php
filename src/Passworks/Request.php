@@ -3,6 +3,7 @@
 namespace Passworks;
 
 use Passworks\Exception\ConnectionErrorException;
+use Passworks\Exception\UnprocessableEntityException;
 
 class Request {
 
@@ -72,8 +73,8 @@ class Request {
         if( $method == 'post' ){
             curl_setopt($curl, CURLOPT_POSTFIELDS, $json_post_data);
             curl_setopt($curl, CURLOPT_POST, true);
-        } elseif ( $method == 'put' ) {
-            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PUT');
+        } elseif ( $method == 'patch' ) {
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PATCH');
             curl_setopt($curl, CURLOPT_POSTFIELDS, $json_post_data);
             $headers[] = 'Content-Length: ' . strlen($json_post_data);
         } elseif ( $method != 'get' ) {
@@ -123,6 +124,13 @@ class Request {
 
     private function _handle_http_code($headers, $raw_body)
     {
+
+        $http_message = json_decode($raw_body);
+
+        print "===================================\n";
+        print_r($http_message);
+        print "\n===================================\n";
+        
         $http_code = intval($headers['http_code']);
         switch( $http_code ){
             case 401:
@@ -136,6 +144,15 @@ class Request {
             case 404:
                 throw new ResourceNotFoundException('Resource Not Found');
             break;
+
+            case 422:
+                throw new UnprocessableEntityException($http_message->message, $http_message->error_code);
+            break;
+            
+            case 400:
+                throw new UnprocessableEntityException($http_message->message, $http_message->error_code);
+            break;
+
 
             case 500:
                 throw new ServerErrorException('Server Error');

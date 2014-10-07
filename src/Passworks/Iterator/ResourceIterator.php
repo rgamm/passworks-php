@@ -15,6 +15,7 @@ class ResourceIterator implements \Iterator
   protected $currentIndex    = 0;
   protected $collection_name = null;
   protected $results         = array();
+  protected $initialized     = false;
 
   public function __construct($api, $method, $url, $collection_name, $params=array())
   {
@@ -26,6 +27,7 @@ class ResourceIterator implements \Iterator
     $this->offset   = empty($params['offset'])   ? null : $params['offset'];
     $this->current_index = 0;
     $this->collection_name = $collection_name;
+    $this->initialized = false;
   }
 
   public function load()
@@ -39,10 +41,6 @@ class ResourceIterator implements \Iterator
       $this->headers = $this->api->getResponseHeaders(); 
 
     $results =  $this->results->{$this->collection_name}; 
-    if( empty($results) ){
-      $this->results = array();
-    }
-
     $this->results = $results;
     return $this->results;
   }
@@ -56,13 +54,18 @@ class ResourceIterator implements \Iterator
     return $this->current_index+=1;
   }
   
-  public function key(){}
+  public function key(){
+    $offset       = isset($this->headers['X-Offset']) ? intval($this->headers['X-Offset'])     : 0;
+    $current_page = isset($this->headers['X-Page'])   ? (intval($this->headers['X-Page']) - 1) : 0;
+    return $offset + ($current_page * $this->current_index);   
+  }
   
-    public function rewind(){
-      $this->page = 1;
-      $this->current_index = 0;
-      $this->load();
-    }
+  public function rewind(){
+    $this->initialized = true;
+    $this->page = 1;
+    $this->current_index = 0;
+    $this->load();
+  }
 
   public function valid(){ 
     if ( $this->current_index <  count($this->results) )
@@ -84,7 +87,7 @@ class ResourceIterator implements \Iterator
 
   public function hasNextPage()
   {
-    return !empty($this->headers['X-Next-Page']);
+    return isset($this->headers['X-Next-Page']);
   }
 
   public function getNextPage()
@@ -95,6 +98,39 @@ class ResourceIterator implements \Iterator
     }
     return -1;
   }
+
+  public function count(){
+    if( !$this->initialized )
+    {
+      $this->rewind();
+    }
+
+    if( !isset($this->headers['X-Total']) )
+    {
+      return -1;
+    }
+
+    return intval($this->headers['X-Total']);
+  }
+
+  public function size(){
+    return $this->count();
+  }
+
+  public function toArray(){
+
+    if( !$this->initialized ){ $this->rewind(); }
+
+    $retArray = array();
+    while( $this->valid() )
+    {
+      $retArray[] = $this->current();
+      $this->next();
+    }
+
+    return $retArray;
+  }
+
 
 
 }
