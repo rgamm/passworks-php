@@ -5,8 +5,8 @@ Passworks PHP API client can be installed via [Composer](https://github.com/comp
 
 
 
-Installing via Composer
--------------------------
+Installing using Composer
+-----------------
 
 The API client can be installed through Composer. When a final public release is available it will be added to the [Packagist](https://packagist.org/) repository. 
 For now you'll have to add the following to a composer.json file in the project root:
@@ -32,7 +32,7 @@ Once the composer.json file is created you can run composer install for the init
 require 'vendor/autoload.php';
 ```
 
-# Installation using the PHAR file (passworks.phar)
+# Installation using the PHAR
 ------------------
 
 Download the lastest version of [Passworks.phar](https://github.com/passworks/passworks-php/releases/latest) and require it as usual.
@@ -41,7 +41,7 @@ Download the lastest version of [Passworks.phar](https://github.com/passworks/pa
 include 'Passworks.phar';
 ```
 
-Examples
+Example
 -----------------
 
 ```php
@@ -69,6 +69,11 @@ foreach($assets as $asset)
 
 More Examples:
 ---------------------
+[Creating, Listing and Editing Coupons](https://github.com/passworks/passworks-php/wiki/Creating,-Listing-and-Editing-Coupons)
+[Creating, Listing and Editing Event Tickets](https://github.com/passworks/passworks-php/wiki/Creating,-Listing-and-Editing-Event-Tickets)
+[Creating, Listing and Editing Boarding Passes](https://github.com/passworks/passworks-php/wiki/Creating,-Listing-and-Editing-Boarding-Passes)
+[Creating, Listing and Editing Store Cards](https://github.com/passworks/passworks-php/wiki/Creating,-Listing-and-Editing-Store-Cards)
+[Creating, Listing and Editing Generic Passes](https://github.com/passworks/passworks-php/wiki/Creating,-Listing-and-Editing-Generic-Passes)
 
     
 Documentation
