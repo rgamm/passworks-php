@@ -46,7 +46,7 @@ class Request {
     {
         $php_version  = phpversion();
         $curl_version = curl_version();
-        $php_os       = PHP_OS;  
+        $php_os       = PHP_OS;
         $php_client   = Client::VERSION;
         $this->setUserAgent("Passworks PHP Client/{$php_client} PHP/{$php_version} CURL/{$curl_version['version']} OS/{$php_os}");
     }
@@ -127,10 +127,6 @@ class Request {
 
         $http_message = json_decode($raw_body);
 
-        print "===================================\n";
-        print_r($http_message);
-        print "\n===================================\n";
-        
         $http_code = intval($headers['http_code']);
         switch( $http_code ){
             case 401:
@@ -148,7 +144,7 @@ class Request {
             case 422:
                 throw new UnprocessableEntityException($http_message->message, $http_message->error_code);
             break;
-            
+
             case 400:
                 throw new UnprocessableEntityException($http_message->message, $http_message->error_code);
             break;
