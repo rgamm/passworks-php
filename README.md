@@ -55,7 +55,7 @@ use Passworks;
 $api = new Passworks\Client('your api username', 'your api key');
 
 // upload a asset (background image)
-$api->createAsset('background', '/servers/sites/backend-saas/public/uploads/asset/368/original.png');
+$api->createAsset('background', '~/images/background-image.png');
 
 // Fetch the asset list
 $assets = $api->getAssets();
