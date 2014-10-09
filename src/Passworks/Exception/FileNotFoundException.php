@@ -2,4 +2,5 @@
 
 namespace Passworks\Exception;
 
-class FileNotFoundException extends BaseException;
+class FileNotFoundException extends BaseException {}
+
