@@ -135,7 +135,7 @@ class Client extends Request {
     public function createAsset($assetType, $file) {
 
         if (!file_exists($file)) {
-            throw new FileNotFoundException("Can't find file {filename}");
+            throw new FileNotFoundException("Can't find file {$file}");
         }
 
         $filename = pathinfo($file, (PATHINFO_BASENAME | PATHINFO_EXTENSION));
