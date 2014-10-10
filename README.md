@@ -1,7 +1,7 @@
 PHP bindings for the Passworks API
 ================================================
 
-Passworks PHP API client can be installed via [Composer](https://github.com/composer/composer) or [PHAR](http://php.net/manual/en/intro.phar.php) file.
+Passworks PHP API client can be installed via [Composer](https://github.com/composer/composer) or [PHAR](http://php.net/manual/en/intro.phar.php) file. (*Composer is the recommended method for using Passworks API client*).
 
 
 
@@ -32,7 +32,7 @@ Once the composer.json file is created you can run composer install for the init
 require 'vendor/autoload.php';
 ```
 
-# Installation using the PHAR
+# Installation using the PHAR file
 ------------------
 
 Download the lastest version of [Passworks.phar](https://github.com/passworks/passworks-php/releases/latest) and require it as usual.
