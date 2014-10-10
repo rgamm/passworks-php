@@ -79,7 +79,7 @@ class Client extends Request {
 
     public function getCouponCampaigns($page = 1, $per_page = null) {
         return new ResourceIterator($this, 'get', '/coupons', 'coupons', array(
-            'page' => $page,
+            'page'     => $page,
             'per_page' => $per_page
         ));
     }
@@ -150,8 +150,8 @@ class Client extends Request {
         }
 
         $payload = array(
-            'asset[file]'       => $cfile,
-            'asset[asset_type]' => $asset_type
+            'file'       => $cfile,
+            'asset_type' => $asset_type
         );
 
         $headers = array(

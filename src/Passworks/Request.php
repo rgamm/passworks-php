@@ -67,7 +67,11 @@ class Request {
 
         if( in_array('Content-Type: application/json', $headers) ){
             $post_data = json_encode($post_data);
+        }else{
+            $post_data = http_build_query($post_data);
         }
+
+
 
         $request_url    = "{$this->getEndpoint()}/v{$this->api_version}{$url}";
 
@@ -82,8 +86,10 @@ class Request {
         }
 
         if( $method == 'POST' ){
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);
             curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLINFO_HEADER_OUT, true);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);
         } elseif ( $method == 'PATCH' ) {
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PATCH');
             curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);
