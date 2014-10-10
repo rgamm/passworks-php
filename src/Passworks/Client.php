@@ -139,7 +139,7 @@ class Client extends Request {
         }
 
         $payload = array(
-            'file'       => "@{file_with_path}",
+            'file'       => "@{$file_with_path}",
             'asset_type' => $asset_type
         );
 
