@@ -69,6 +69,9 @@ foreach($assets as $asset)
 
 More Examples:
 ---------------------
+
+[Creating and Listing assets](https://github.com/passworks/passworks-php/wiki/Creating-and-Listing-assets)
+
 [Creating, Listing and Editing Coupons](https://github.com/passworks/passworks-php/wiki/Creating,-Listing-and-Editing-Coupons) 
 
 [Creating, Listing and Editing Event Tickets](https://github.com/passworks/passworks-php/wiki/Creating,-Listing-and-Editing-Event-Tickets) 
