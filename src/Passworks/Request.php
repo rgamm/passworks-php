@@ -69,7 +69,7 @@ class Request {
         if( $this->getDebug() ){
             curl_setopt($curl, CURLOPT_VERBOSE, true);
             print "\n===================== REQUEST =======================\n";
-            print "URL: {request_url}";
+            print "URL: {$method} {$request_url}\n";
             print "PAYLOAD: {$json_post_data}\n";
             print "\n=============================================\n";
         }
