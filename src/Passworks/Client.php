@@ -46,27 +46,6 @@ class Client extends Request {
         $this->debug = $debug;
     }
 
-    // public function getEventTickets($page = 1, $per_page = null) {
-    //     return new ResourceIterator($this, 'get', '/event_tickets', 'event_tickets', array(
-    //         'page' => $page,
-    //         'per_page' => $per_page
-    //     ));
-    // }
-
-    // public function getBoardingPasses($page = 1, $per_page = null) {
-    //     return new ResourceIterator($this, 'get', '/boarding_passes', 'boarding_passes', array(
-    //         'page' => $page,
-    //         'per_page' => $per_page
-    //     ));
-    // }
-
-    // public function getGenerics($page = 1, $per_page = null) {
-    //     return new ResourceIterator($this, 'get', '/generics', 'generics', array(
-    //         'page' => $page,
-    //         'per_page' => $per_page
-    //     ));
-    // }
-
     // =================
     // Coupons
     //
