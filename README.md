@@ -8,7 +8,7 @@ Passworks PHP API client can be installed via [Composer](https://github.com/comp
 Installing using Composer
 -----------------
 
-The API client can be installed through Composer. When a final public release is available it will be added to the [Packagist](https://packagist.org/) repository. 
+The API client can be installed through Composer. When a final public release is available it will be added to the [Packagist](https://packagist.org/) repository.
 For now you'll have to add the following to a composer.json file in the project root:
 
 ```javascript
@@ -49,13 +49,13 @@ Example
 
 require 'vendor/autoload.php';
 
-use Passworks;
+use Passworks\Client;
 
 // Instantiate the Passworks client
 $api = new Passworks\Client('your api username', 'your api key');
 
 // upload a asset (background image)
-$api->createAsset('background', '~/images/background-image.png');
+$api->createAsset('background', '/local-path-to-a-image/image.png');
 
 // Fetch the asset list
 $assets = $api->getAssets();
@@ -72,17 +72,17 @@ More Examples:
 
 [Creating and Listing assets](https://github.com/passworks/passworks-php/wiki/Creating-and-Listing-assets)
 
-[Creating, Listing and Editing Coupons](https://github.com/passworks/passworks-php/wiki/Creating,-Listing-and-Editing-Coupons) 
+[Creating, Listing and Editing Coupons](https://github.com/passworks/passworks-php/wiki/Creating,-Listing-and-Editing-Coupons)
 
-[Creating, Listing and Editing Event Tickets](https://github.com/passworks/passworks-php/wiki/Creating,-Listing-and-Editing-Event-Tickets) 
+[Creating, Listing and Editing Event Tickets](https://github.com/passworks/passworks-php/wiki/Creating,-Listing-and-Editing-Event-Tickets)
 
-[Creating, Listing and Editing Boarding Passes](https://github.com/passworks/passworks-php/wiki/Creating,-Listing-and-Editing-Boarding-Passes) 
+[Creating, Listing and Editing Boarding Passes](https://github.com/passworks/passworks-php/wiki/Creating,-Listing-and-Editing-Boarding-Passes)
 
-[Creating, Listing and Editing Store Cards](https://github.com/passworks/passworks-php/wiki/Creating,-Listing-and-Editing-Store-Cards) 
+[Creating, Listing and Editing Store Cards](https://github.com/passworks/passworks-php/wiki/Creating,-Listing-and-Editing-Store-Cards)
 
 [Creating, Listing and Editing Generic Passes](https://github.com/passworks/passworks-php/wiki/Creating,-Listing-and-Editing-Generic-Passes)
 
-    
+
 Documentation
 ----------------------
 For more information about the API please please refere to [https://github.com/passworks/passworks-api](https://github.com/passworks/passworks-api)
