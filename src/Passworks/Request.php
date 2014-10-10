@@ -65,26 +65,28 @@ class Request {
             $headers = array('Content-Type: application/json');
         }
 
+        if( in_array('Content-Type: application/json', $headers) ){
+            $post_data = json_encode($post_data);
+        }
         $request_url    = "{$this->getEndpoint()}/v{$this->api_version}{$url}";
 
         $curl           = curl_init($request_url);
-        $json_post_data = json_encode($post_data);
 
         if( $this->getDebug() ){
             curl_setopt($curl, CURLOPT_VERBOSE, true);
             print "\n===================== REQUEST =======================\n";
             print "URL: {$method} {$request_url}\n";
-            print "PAYLOAD: {$json_post_data}\n";
+            print_r($post_data);
             print "\n=============================================\n";
         }
 
         if( $method == 'POST' ){
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $json_post_data);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);
             curl_setopt($curl, CURLOPT_POST, true);
         } elseif ( $method == 'PATCH' ) {
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PATCH');
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $json_post_data);
-            $headers[] = 'Content-Length: ' . strlen($json_post_data);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);
+            $headers[] = 'Content-Length: ' . strlen($post_data);
         } elseif ( $method != 'GET' ) {
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
         }
