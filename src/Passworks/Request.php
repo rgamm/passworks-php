@@ -54,6 +54,8 @@ class Request {
     public function request($method, $url, $post_data=null)
     {
 
+        $method = strtoupper($method);
+
         if( empty($this->getUserAgent()) )
         {
           $this->setDefaultUserAgent();
@@ -74,14 +76,14 @@ class Request {
             print "\n=============================================\n";
         }
 
-        if( $method == 'post' ){
+        if( $method == 'POST' ){
             curl_setopt($curl, CURLOPT_POSTFIELDS, $json_post_data);
             curl_setopt($curl, CURLOPT_POST, true);
-        } elseif ( $method == 'patch' ) {
+        } elseif ( $method == 'PATCH' ) {
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PATCH');
             curl_setopt($curl, CURLOPT_POSTFIELDS, $json_post_data);
             $headers[] = 'Content-Length: ' . strlen($json_post_data);
-        } elseif ( $method != 'get' ) {
+        } elseif ( $method != 'GET' ) {
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
         }
 
