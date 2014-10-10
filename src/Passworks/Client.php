@@ -150,8 +150,8 @@ class Client extends Request {
         }
 
         $payload = array(
-            '[file]'       => $cfile,
-            '[asset_type]' => $asset_type
+            'asset[file]'       => $cfile,
+            'asset[asset_type]' => $asset_type
         );
 
         $headers = array(
