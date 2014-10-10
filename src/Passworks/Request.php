@@ -68,6 +68,7 @@ class Request {
         if( in_array('Content-Type: application/json', $headers) ){
             $post_data = json_encode($post_data);
         }
+
         $request_url    = "{$this->getEndpoint()}/v{$this->api_version}{$url}";
 
         $curl           = curl_init($request_url);

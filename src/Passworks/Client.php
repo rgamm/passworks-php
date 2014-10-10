@@ -138,9 +138,20 @@ class Client extends Request {
             throw new FileNotFoundException("Can't find file {$file_with_path}");
         }
 
+        $filename   = pathinfo($file_with_path, (PATHINFO_BASENAME | PATHINFO_EXTENSION));
+        $mimetype   = mime_content_type($file_with_path);
+
+        // For PHP 5.5 or later use  CURLFile or curl_file_create
+        // for PHP 5.4 or earlier build the request by hand
+        if( function_exists('curl_file_create') ){
+            $cfile =  curl_file_create($file_with_path, $mimetype, $filename);
+        }else{
+            $cfile =  "@{$file_with_path};filename=" . $filename .';type=' . $mimetype;
+        }
+
         $payload = array(
-            'file'       => "@{$file_with_path}",
-            'asset_type' => $asset_type
+            'asset[file]'       => $cfile,
+            'asset[asset_type]' => $asset_type
         );
 
         $headers = array(
@@ -148,9 +159,7 @@ class Client extends Request {
             'Accept: application/json'
         );
 
-        $response = $this->request('post', '/assets', array(
-            'asset' => $payload
-        ), $headers);
+        $response = $this->request('post', '/assets', $payload, $headers);
 
         if (isset($response->asset)) {
             return $response->asset;
