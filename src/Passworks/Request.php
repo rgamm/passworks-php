@@ -68,6 +68,10 @@ class Request {
 
         if( $this->getDebug() ){
             curl_setopt($curl, CURLOPT_VERBOSE, true);
+            print "\n===================== REQUEST =======================\n";
+            print "URL: {request_url}";
+            print "PAYLOAD: {$json_post_data}\n";
+            print "\n=============================================\n";
         }
 
         if( $method == 'post' ){
@@ -111,6 +115,12 @@ class Request {
         $info       = curl_getinfo($curl);
 
         $response   = explode("\r\n\r\n", $result, 2 + $info['redirect_count']);
+
+        if( $this->getDebug() ){
+            print "\n===================== RESPONSE =======================\n";
+            print_r($response);
+            print "\n=============================================\n";
+        }
 
         $body                    = array_pop($response);
         $this->response_headers  = $this->_parseHeaders( array_pop($response) );

@@ -11,10 +11,10 @@ class Client extends Request {
 
     const VERSION = '0.0.1';
 
-    private $api_app_id = null;
-    private $api_app_key = null;
-    private $debug = true;
-    private $http = null;
+    private $api_app_id     = null;
+    private $api_app_key    = null;
+    private $debug          = true;
+    private $http           = null;
 
     public function __construct($api_username, $api_key, $debug = false) {
         $this->api_username = $api_username;
@@ -46,28 +46,26 @@ class Client extends Request {
         $this->debug = $debug;
     }
 
+    // public function getEventTickets($page = 1, $per_page = null) {
+    //     return new ResourceIterator($this, 'get', '/event_tickets', 'event_tickets', array(
+    //         'page' => $page,
+    //         'per_page' => $per_page
+    //     ));
+    // }
 
+    // public function getBoardingPasses($page = 1, $per_page = null) {
+    //     return new ResourceIterator($this, 'get', '/boarding_passes', 'boarding_passes', array(
+    //         'page' => $page,
+    //         'per_page' => $per_page
+    //     ));
+    // }
 
-    public function getEventTickets($page = 1, $per_page = null) {
-        return new ResourceIterator($this, 'get', '/event_tickets', 'event_tickets', array(
-            'page' => $page,
-            'per_page' => $per_page
-        ));
-    }
-
-    public function getBoardingPasses($page = 1, $per_page = null) {
-        return new ResourceIterator($this, 'get', '/boarding_passes', 'boarding_passes', array(
-            'page' => $page,
-            'per_page' => $per_page
-        ));
-    }
-
-    public function getGenerics($page = 1, $per_page = null) {
-        return new ResourceIterator($this, 'get', '/generics', 'generics', array(
-            'page' => $page,
-            'per_page' => $per_page
-        ));
-    }
+    // public function getGenerics($page = 1, $per_page = null) {
+    //     return new ResourceIterator($this, 'get', '/generics', 'generics', array(
+    //         'page' => $page,
+    //         'per_page' => $per_page
+    //     ));
+    // }
 
     // =================
     // Coupons
@@ -118,7 +116,7 @@ class Client extends Request {
 
 
     // =================
-    // Store Cards
+    // Assets
     //
 
     public function getAssets($page = 1, $per_page = null) {
@@ -132,24 +130,26 @@ class Client extends Request {
         return $this->request('get', "/assets/{$asset_id}")->asset;
     }
 
-    public function createAsset($assetType, $file) {
+    public function createAsset($asset_type, $file) {
 
         if (!file_exists($file)) {
             throw new FileNotFoundException("Can't find file {$file}");
         }
 
-        $filename = pathinfo($file, (PATHINFO_BASENAME | PATHINFO_EXTENSION));
-        $data = base64_encode(file_get_contents($file));
-        $mimetype = mime_content_type($file);
+        $filename   = pathinfo($file, (PATHINFO_BASENAME | PATHINFO_EXTENSION));
+        $data       = base64_encode(file_get_contents($file));
+        $mimetype   = mime_content_type($file);
 
         $payload = array(
-            'filename' => $filename,
-            'asset_type' => $assetType,
-            'base64' => $data,
-            'content_type' => $mimetype
+            'filename'      => $filename,
+            'asset_type'    => $asset_type,
+            'base64'        => $data,
+            'content_type'  => $mimetype
         );
 
-        $response = $this->request('post', '/assets', array('asset' => $payload));
+        $response = $this->request('post', '/assets', array(
+            'asset' => $payload
+        ));
 
         if (isset($response->asset)) {
             return $response->asset;
