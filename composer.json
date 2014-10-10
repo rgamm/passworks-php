@@ -1,15 +1,22 @@
 {
-    "name": "passworks/passworks-php",
-    "description": "Passworks API client",
-    "keywords": ["passworks", "passworks.io", "api", "passbook"],
-    "license": "MIT",
-    "authors": [
+  "name": "passworks/passworks-php",
+  "description": "Passworks API client",
+  "keywords": [
+    "passworks",
+    "passworks.io",
+    "api",
+    "passbook"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
       "name": "Passworks Team",
       "homepage": "http://www.passworks.io"
-    ],
-    "autoload": {
-        "psr-0": {
-            "Passworks": "src/"
-        }
     }
+  ],
+  "autoload": {
+    "psr-0": {
+      "Passworks": "src/"
+    }
+  }
 }
