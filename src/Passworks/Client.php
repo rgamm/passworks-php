@@ -132,24 +132,24 @@ class Client extends Request {
 
     public function createAsset($asset_type, $file) {
 
+        $file_with_path = realpath($file);
+
         if (!file_exists($file)) {
-            throw new FileNotFoundException("Can't find file {$file}");
+            throw new FileNotFoundException("Can't find file {$file_with_path}");
         }
 
-        $filename   = pathinfo($file, (PATHINFO_BASENAME | PATHINFO_EXTENSION));
-        $data       = base64_encode(file_get_contents($file));
-        $mimetype   = mime_content_type($file);
-
         $payload = array(
-            'filename'      => $filename,
-            'asset_type'    => $asset_type,
-            'base64'        => $data,
-            'content_type'  => $mimetype
+            'file'  => "@{file_with_path}"
+        );
+
+        $headers = array(
+            'Content-Type: multipart/form-data',
+            'Accept: application/json'
         );
 
         $response = $this->request('post', '/assets', array(
             'asset' => $payload
-        ));
+        ), $headers);
 
         if (isset($response->asset)) {
             return $response->asset;

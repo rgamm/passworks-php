@@ -51,7 +51,7 @@ class Request {
         $this->setUserAgent("Passworks PHP Client/{$php_client} PHP/{$php_version} CURL/{$curl_version['version']} OS/{$php_os}");
     }
 
-    public function request($method, $url, $post_data=null)
+    public function request($method, $url, $post_data=null, $headers=null)
     {
 
         $method = strtoupper($method);
@@ -61,7 +61,9 @@ class Request {
           $this->setDefaultUserAgent();
         }
 
-        $headers        = array('Content-Type: application/json');
+        if( empty($headers) ){
+            $headers = array('Content-Type: application/json');
+        }
 
         $request_url    = "{$this->getEndpoint()}/v{$this->api_version}{$url}";
 
