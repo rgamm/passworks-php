@@ -111,8 +111,6 @@ class Request {
                 $curlErrorString = curl_error($curl);
                 throw new ConnectionErrorException('Unable to connect: ' . $curlErrorNumber . ' ' . $curlErrorString);
             }
-
-            $this->_error('Unable to connect.');
             throw new ConnectionErrorException('Unable to connect.');
         }
 
