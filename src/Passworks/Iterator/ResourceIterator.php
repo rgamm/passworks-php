@@ -38,9 +38,9 @@ class ResourceIterator implements \Iterator
     if( $this->offset   ){ $fetch_url .= "&offset={$this->offset}";  }
 
       $this->results = $this->api->request($this->method, $fetch_url);
-      $this->headers = $this->api->getResponseHeaders(); 
+      $this->headers = $this->api->getResponseHeaders();
 
-    $results =  $this->results->{$this->collection_name}; 
+    $results =  $this->results->{$this->collection_name};
     $this->results = $results;
     return $this->results;
   }
@@ -53,13 +53,13 @@ class ResourceIterator implements \Iterator
   public function next(){
     return $this->current_index+=1;
   }
-  
+
   public function key(){
     $offset       = isset($this->headers['X-Offset']) ? intval($this->headers['X-Offset'])     : 0;
     $current_page = isset($this->headers['X-Page'])   ? (intval($this->headers['X-Page']) - 1) : 0;
-    return $offset + ($current_page * $this->current_index);   
+    return $offset + ($current_page * $this->current_index);
   }
-  
+
   public function rewind(){
     $this->initialized = true;
     $this->page = 1;
@@ -67,7 +67,7 @@ class ResourceIterator implements \Iterator
     $this->load();
   }
 
-  public function valid(){ 
+  public function valid(){
     if ( $this->current_index <  count($this->results) )
     {
       return true;
