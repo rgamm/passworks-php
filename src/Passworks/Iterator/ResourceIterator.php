@@ -40,8 +40,6 @@ class ResourceIterator implements \Iterator
       $this->results = $this->api->request($this->method, $fetch_url);
       $this->headers = $this->api->getResponseHeaders();
 
-    $results =  $this->results->{$this->collection_name};
-    $this->results = $results;
     return $this->results;
   }
 
