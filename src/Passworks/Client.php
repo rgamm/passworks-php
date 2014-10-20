@@ -9,7 +9,7 @@ use Passworks\Exception\FileNotFoundException;
 
 class Client extends Request {
 
-    const VERSION = '0.0.2';
+    const VERSION = '0.0.3';
 
     private $api_app_id     = null;
     private $api_app_key    = null;
