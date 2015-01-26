@@ -8,24 +8,19 @@ Passworks PHP API client can be installed via [Composer](https://github.com/comp
 Installing using Composer
 -----------------
 
-The API client can be installed through Composer. When a final public release is available it will be added to the [Packagist](https://packagist.org/) repository.
-For now you'll have to add the following to a **composer.json** file in the project root:
+The API client can be installed through Composer.
+It's been made available as a [Packagist](https://packagist.org/) package, available [here](https://packagist.org/packages/passworks/passworks-php).
+In order to use it, first add a file named  **composer.json** in your project root:
 
 ```javascript
 {
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/passworks/passworks-php"
-        }
-    ],
     "require": {
-        "passworks/passworks-php": "dev-master"
+        "passworks/passworks-php": "0.0.4-beta"
     }
 }
 ```
 
-Once the composer.json file is created, you need to download the composer.phar executable. To do so, run the following curl command:
+Once the composer.json file is created, you need to download the composer.phar executable. To do so, run the following curl command on your console of choice:
 
 ```shell
 curl -sS https://getcomposer.org/installer | php
