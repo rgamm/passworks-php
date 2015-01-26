@@ -95,6 +95,22 @@ class Client extends Request {
 
 
     // =================
+    // Certificates
+    //
+
+    public function getCertificates($page = 1, $per_page = null) {
+        return new ResourceIterator($this, 'get', '/certificates', 'certificates', array(
+            'page'     => $page,
+            'per_page' => $per_page
+        ));
+    }
+
+    public function getCertificate($certificate_id) {
+        return $this->request('get', "/certificates/{$certificate_id}");
+    }
+
+
+    // =================
     // Assets
     //
 

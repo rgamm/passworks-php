@@ -9,7 +9,7 @@ Installing using Composer
 -----------------
 
 The API client can be installed through Composer. When a final public release is available it will be added to the [Packagist](https://packagist.org/) repository.
-For now you'll have to add the following to a composer.json file in the project root:
+For now you'll have to add the following to a **composer.json** file in the project root:
 
 ```javascript
 {
@@ -25,8 +25,19 @@ For now you'll have to add the following to a composer.json file in the project 
 }
 ```
 
-Once the composer.json file is created you can run composer install for the initial package install and composer update to updated to the latest version of the API client, which is linked to the master branch.
+Once the composer.json file is created, you need to download the composer.phar executable. To do so, run the following curl command:
 
+```shell
+curl -sS https://getcomposer.org/installer | php
+```
+
+Now you can run the composer install for the initial package install and composer update to update to the latest version of the API client, which is linked to the master branch.
+
+```shell
+php composer.phar install
+```
+
+Now you're set to go! Just include the following file and you're good to go.
 
 ```php
 require 'vendor/autoload.php';
@@ -71,6 +82,8 @@ More Examples:
 ---------------------
 
 [Creating and Listing assets](https://github.com/passworks/passworks-php/wiki/Creating-and-Listing-assets)
+
+[Listing certificates](https://github.com/passworks/passworks-php/wiki/Listing-certificates)
 
 [Creating, Listing and Editing Coupons](https://github.com/passworks/passworks-php/wiki/Creating,-Listing-and-Editing-Coupons)
 
