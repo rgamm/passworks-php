@@ -10,7 +10,7 @@ class Request {
   private $response_headers = null;
   private $endpoint         = 'https://api.passworks.io';
   private $user_agent       = null;
-  private $api_version      = 1;
+  private $api_version      = 2;
 
     public function getResponseHeaders()
     {
