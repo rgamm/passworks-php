@@ -116,7 +116,9 @@ class Request {
 
         $info       = curl_getinfo($curl);
 
-        $response   = explode("\r\n\r\n", $result, 2 + $info['redirect_count']);
+        // used to be 2, set to 3 because there could be a HTTP 100 continue for POST methods
+        //@todo make this handle headers/body properly.
+        $response   = explode("\r\n\r\n", $result, 3 + $info['redirect_count']);
 
         if( $this->getDebug() ){
             print "\n===================== RESPONSE =======================\n";
